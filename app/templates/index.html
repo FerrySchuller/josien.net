@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Josien.net{% endblock %}
+
+{% block content -%}
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/dark-unica.js') }}"></script>
+
+
+<!--
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+-->
+
+
+<div class="container-fluid">
+  <div class="p-1" id="reserve_container"></div>
+  <div class="p-1" id="vault_container"></div>
+  <div class="p-1" id="burn_container"></div>
+</div>
+
+
+{%- endblock content %}
+
+
+{% block scripts %}
+    {{ super() }}
+<script>
+
+var burn = {{ omi.burn|safe }}
+var vault = {{ omi.vault|safe }}
+var reserve = {{ omi.reserve|safe }}
+
+
+
+
+Highcharts.chart('reserve_container', {
+    title: { text: 'Reserve {{ "{:,.0f}".format(omi.reserve[-1].y) }}' },
+    chart: { zoomType: 'x', height: 300 },
+    yAxis: { title: { text: '' } },
+    xAxis: { type: 'datetime' },
+    legend: { enabled: false },
+    series: [{ name: 'reserve', data: reserve }], 
+});
+
+Highcharts.chart('vault_container', {
+    title: { text: 'Vault {{ "{:,.0f}".format(omi.vault[-1].y) }}' },
+    chart: { zoomType: 'x', height: 300 },
+    yAxis: { title: { text: '' } },
+    xAxis: { type: 'datetime' },
+    legend: { enabled: false },
+    series: [{ name: 'vault', data: vault }], 
+});
+
+Highcharts.chart('burn_container', {
+    title: { text: 'Burn {{ "{:,.0f}".format(omi.burn[-1].y) }}' },
+    chart: { zoomType: 'x', height: 300 },
+    yAxis: { title: { text: '' } },
+    xAxis: { type: 'datetime' },
+    legend: { enabled: false },
+    series: [{ name: 'Burn', data: burn }], 
+});
+
+
+
+</script>
+<script type=text/javascript>
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+{%- endblock scripts %}
