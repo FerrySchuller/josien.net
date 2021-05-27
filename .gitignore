@@ -8,6 +8,4 @@ __pycache__
 *.pyc
 *.swp
 .env
-bot.pid
 cache.pid
-rem
