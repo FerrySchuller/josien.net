@@ -2,8 +2,14 @@
 {% block title %}Josien.net{% endblock %}
 
 {% block content -%}
-<script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/highstock.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/dark-unica.js') }}"></script>
+
+
+
 <div class="container-fluid">
   <div class="p-1" id="container"></div>
 </div>
@@ -29,7 +35,9 @@ Highcharts.chart('container', {
     series: [ { name: 'reserve', yAxis: 0,  data: reserve },
               { name: 'vault', yAxis: 1, data: vault },
               { name: 'burn', yAxis: 2, data: burn },
-              { name: 'omiusdt', yAxis: 3, data: omiusdt } ],
+              { name: 'omiusdt', yAxis: 3, data: omiusdt },
+              { type: 'flags', data: [{ x: 1622124011000, title: 'DC Cover Girls — Series 1' } ],
+                shape: 'squarepin' } ],
     tooltip: { crosshairs: true,
                shared: true },
 });
