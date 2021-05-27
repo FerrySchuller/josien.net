@@ -10,14 +10,11 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='fav/favicon.ico') }}">
     <meta name="theme-color" content="#ffffff">
     <title>{% block title %}{% endblock title %}</title>
-    {% assets "css_all" %}
+    {%- assets "css_all" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-    {% endassets %}
+    {%- endassets %}
   </head>
-
   <body>
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Josien</a>
@@ -29,39 +26,33 @@
         <li class="nav-item">
           <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{{ url_for('index') }}">Home</a>
         </li>
-
-        {% if request.host != 'josien.net' %}
+        {%- if request.host != 'josien.net' %}
         <li class="nav-item">
           <a class="nav-link {% if request.path == '/dev' %}active{% endif %}" aria-current="page" href="{{ url_for('dev') }}">Dev</a>
         </li>
-        {% endif %}
-
-
+        {%- endif %}
       </ul>
     </div>
   </div>
 </nav>
-    {% block content -%}
-
-    {%- endblock content %}
-
-    {% block scripts %}
-    {% assets "js_all" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <script> $.notify({ title: '<strong>{{ category|e }}</strong>',
-                              message: '{{ message }}'} ,
-                            { placement: { from: "top", align: "center" },
-                              type: '{{ category }}' });
-          </script>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-    {%- endblock scripts %}
+{%- block content -%}
+{%- endblock content %}
+{%- block scripts %}
+{%- assets "js_all" %}
+<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{%- endassets %}
+  {%- with messages = get_flashed_messages(with_categories=true) %}
+    {%- if messages %}
+      {% for category, message in messages %}
+        <script> $.notify({ title: '<strong>{{ category|e }}</strong>',
+                            message: '{{ message }}'} ,
+                          { placement: { from: "top", align: "center" },
+                            type: '{{ category }}' });
+        </script>
+      {% endfor %}
+  {% endif %}
+{% endwith %}
+{%- endblock scripts %}
   </body>
 </html>
 {% endblock doc -%}
