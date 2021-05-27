@@ -5,9 +5,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/dark-unica.js') }}"></script>
 <div class="container-fluid">
-  <div class="p-1" id="reserve_container"></div>
-  <div class="p-1" id="vault_container"></div>
-  <div class="p-1" id="burn_container"></div>
+  <div class="p-1" id="container"></div>
 </div>
 {%- endblock content %}
 
@@ -17,33 +15,25 @@
 var burn = {{ omi.burn|safe }}
 var vault = {{ omi.vault|safe }}
 var reserve = {{ omi.reserve|safe }}
+var omiusdt = {{ omi.omiusdt|safe }}
 
-Highcharts.chart('reserve_container', {
-    title: { text: 'Reserve {{ "{:,.0f}".format(omi.reserve[-1].y) }}' },
-    chart: { zoomType: 'x', height: 300 },
-    yAxis: { title: { text: '' } },
+Highcharts.chart('container', {
+    title: { text: 'Reserve {{ "{:,.0f}".format(omi.reserve[-1].y) }}<br />Vault {{ "{:,.0f}".format(omi.vault[-1].y) }}<br />Burn {{ "{:,.0f}".format(omi.burn[-1].y) }}' },
+    chart: { zoomType: 'x', height: 600 },
+    yAxis: [ { visible: false}, 
+             { visible: false},
+             { visible: false},
+             { title: { text: 'OMI / USDT' } } ],
     xAxis: { type: 'datetime' },
-    legend: { enabled: false },
-    series: [{ name: 'reserve', data: reserve }], 
+    legend: { enabled: true },
+    series: [ { name: 'reserve', yAxis: 0,  data: reserve },
+              { name: 'vault', yAxis: 1, data: vault },
+              { name: 'burn', yAxis: 2, data: burn },
+              { name: 'omiusdt', yAxis: 3, data: omiusdt } ],
+    tooltip: { crosshairs: true,
+               shared: true },
 });
 
-Highcharts.chart('vault_container', {
-    title: { text: 'Vault {{ "{:,.0f}".format(omi.vault[-1].y) }}' },
-    chart: { zoomType: 'x', height: 300 },
-    yAxis: { title: { text: '' } },
-    xAxis: { type: 'datetime' },
-    legend: { enabled: false },
-    series: [{ name: 'vault', data: vault }], 
-});
-
-Highcharts.chart('burn_container', {
-    title: { text: 'Burn {{ "{:,.0f}".format(omi.burn[-1].y) }}' },
-    chart: { zoomType: 'x', height: 300 },
-    yAxis: { title: { text: '' } },
-    xAxis: { type: 'datetime' },
-    legend: { enabled: false },
-    series: [{ name: 'Burn', data: burn }], 
-});
 </script>
 <script type=text/javascript>
   var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};

@@ -14,6 +14,9 @@ sys.path.append(os.getenv('lib_dir'))
 
 from josienlib import db
 
+import gate_api
+from gate_api.exceptions import ApiException, GateApiException
+
 
 db = db()
 
@@ -41,6 +44,25 @@ vault = w3.fromWei(vault_balance, 'ether')
 burn_balance = contract.functions.balanceOf(burn_address).call()
 burn = w3.fromWei(burn_balance, 'ether')
 
+
+def get_omi_usdt():
+    configuration = gate_api.Configuration(host="https://api.gateio.ws/api/v4")
+    api_client = gate_api.ApiClient(configuration)
+    api_instance = gate_api.SpotApi(api_client)
+    currency_pair = 'OMI_USDT'
+
+
+    try:
+        api_response = api_instance.list_tickers(currency_pair=currency_pair)
+        return float(api_response[0].last)
+    except GateApiException as ex:
+        print("Gate api exception, label: %s, message: %s\n" % (ex.label, ex.message))
+    except ApiException as e:
+        print("Exception when calling SpotApi->list_tickers: %s\n" % e)
+
+    return False
+
+
 t = round(time() * 1000)
 
 reserve_d = {} 
@@ -55,14 +77,22 @@ vault_d = {}
 vault_d['x'] = t
 vault_d['y'] = float(vault)
 
+omi_usdt_d = {}
+omi_usdt_d['x'] = t
+omi_usdt_d['y'] = get_omi_usdt()
+
+
+
 
 if not db.list_collection_names():
     db.omi_wallet.update_one( { }, { "$set": { "reserve": [],
                                                "vault": [],
+                                               "omiusdt": [],
                                                "burn": [] } }, upsert=True )
 
 
 db.omi_wallet.update_one( { }, { "$push": { 'reserve': { "$each": [ reserve_d ] },
                                             'vault': { "$each": [ vault_d ] },
-                                            'burn': { "$each": [ burn_d ] } } } )
+                                            'burn': { "$each": [ burn_d ] },
+                                            'omiusdt': { "$each": [ omi_usdt_d ] } } } )
 
