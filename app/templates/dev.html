@@ -20,7 +20,7 @@ var reserve = {{ omi.reserve|safe }}
 var omiusdt = {{ omi.omiusdt|safe }}
 
 Highcharts.chart('container', {
-    title: { text: 'Reserve {{ "{:,.0f}".format(omi.reserve[-1].y) }}<br />Vault {{ "{:,.0f}".format(omi.vault[-1].y) }}<br />Burn {{ "{:,.0f}".format(omi.burn[-1].y) }}' },
+    title: { text: 'Reserve <b>{{ "{:,.0f}".format(omi.reserve[-1].y) }}</b><br />Vault <b>{{ "{:,.0f}".format(omi.vault[-1].y) }}</b><br />Burn <b>{{ "{:,.0f}".format(omi.burn[-1].y) }}</b>' },
     chart: { zoomType: 'x', height: 600 },
     yAxis: [ { visible: false}, 
              { visible: false},
