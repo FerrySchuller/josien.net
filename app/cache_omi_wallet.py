@@ -67,15 +67,15 @@ t = round(time() * 1000)
 
 reserve_d = {} 
 reserve_d['x'] = t
-reserve_d['y'] = float(reserve)
+reserve_d['y'] = round(reserve)
 
 burn_d = {}
 burn_d['x'] = t
-burn_d['y'] = float(burn)
+burn_d['y'] = round(burn)
 
 vault_d = {}
 vault_d['x'] = t
-vault_d['y'] = float(vault)
+vault_d['y'] = round(vault)
 
 omi_usdt_d = {}
 omi_usdt_d['x'] = t
