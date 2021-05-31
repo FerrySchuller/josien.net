@@ -3,12 +3,8 @@
 
 {% block content -%}
 
-
-
 <script type="text/javascript" src="{{ url_for('static', filename='js/highstock.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/dark-unica.js') }}"></script>
-
-
 
 <div class="container-fluid">
   <div class="p-1" id="container"></div>
@@ -41,6 +37,9 @@ Highcharts.chart('container', {
                 shape: 'squarepin' } ],
     tooltip: { crosshairs: true,
                shared: true },
+    scrollbar: { enabled: true },
+    navigator: { enabled: true, 
+                 xAxis: { labels: { enabled: false } } },
 });
 
 </script>
