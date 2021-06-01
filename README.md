@@ -20,7 +20,6 @@ ExecStart=/prod/apps/josien.net/env/bin/uwsgi --ini web.ini
 [Install]
 WantedBy=multi-user.target
 
-
 systemctl start josien
 systemctl enable josien
 systemctl status josien
