@@ -13,8 +13,8 @@ js = Bundle('js/jquery-3.5.1.js',
             output='gen/josien.js')
 
 css = Bundle('css/bootstrap.css',
-             'css/dark-unica.css',
              'css/highcharts.css',
+             'css/dark-unica.css',
              'css/josien.css',
              filters='cssmin',
              output='gen/josien.css')
