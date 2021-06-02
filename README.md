@@ -25,7 +25,7 @@ systemctl enable josien
 systemctl status josien
 ```
 
-nginx settings
+nginx settings:
 ```
 cat /etc/nginx/sites-available/josien.net
 server {
