@@ -7,6 +7,28 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/dark-unica.js') }}"></script>
 
 <div class="container-fluid">
+
+<div class="container-fluid">
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div style="display: inline-block;">Reserve <b>{{ "{:,.0f}".format(omi.reserve[-1].y) }}</b></div>
+    </div>
+
+    <div class="col-sm">
+      <div style="display: inline-block;">Vault <b>{{ "{:,.0f}".format(omi.vault[-1].y) }}</b></div>
+    </div>
+
+    <div class="col-sm">
+      <div style="display: inline-block;">Burn <b>{{ "{:,.0f}".format(omi.burn[-1].y) }}</b></div>
+    </div>
+
+  </div>
+</div>
+<br />
+
+
   <div id="omi"></div>
 </div>
 
@@ -22,7 +44,7 @@ var reserve = {{ omi.reserve|safe }}
 var omiusdt = {{ omi.omiusdt|safe }}
 
 Highcharts.chart('omi', {
-    title: { text: 'Reserve <b>{{ "{:,.0f}".format(omi.reserve[-1].y) }}</b><br />Vault <b>{{ "{:,.0f}".format(omi.vault[-1].y) }}</b><br />Burn <b>{{ "{:,.0f}".format(omi.burn[-1].y) }}</b>' },
+    title: { text: '' },
     chart: { zoomType: 'x', height: 600 },
     yAxis: [ { visible: false}, 
              { visible: false},
