@@ -9,7 +9,9 @@ import sys, os
 
 def db():
     c = MongoClient(connect=False)
-    db = c['omi']
+    db = c[os.getenv('db')]
     return db
 
 
+if __name__ == '__main__':
+    print(os.getenv('db'))
