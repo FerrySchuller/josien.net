@@ -88,5 +88,39 @@ def update_db():
                                                 'omiusdt': { "$each": [ omi_usdt_d ] } } } )
 
 
+def dev():
+    w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
+    #pprint(w3.isConnected())
+
+    reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
+    vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
+    burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
+    contract_address = '0x5347FDeA6AA4d7770B31734408Da6d34a8a07BdF'
+
+    with open('/prod/apps/josien.net/app/abi') as f:
+      abi = json.load(f)
+
+    contract = w3.eth.contract(contract_address, abi=abi)
+
+    #pprint(vars(contract))
+    #pprint(dir(contract))
+    #pprint(contract.web3.eth.getBlock('latest'))
+    #pprint(vars(contract.functions))
+    #pprint(vars(contract.functions.symbol))
+    #pprint(contract.functions.events)
+    #pprint(dict(contract.web3.eth.getBlock('latest')))
+    pprint(contract.web3.eth.block_number)
+    pprint(contract.web3.eth.get_block_transaction_count(19333793))
+    #pprint(contract.web3.eth.getTransactionByBlock(19332868))
+    # >>> web3.eth.get_transaction_by_block(46147, 0)
+
+    #contract.events.Transfer(
+    #  {fromBlock: 0, toBlock: 'latest'},
+    #  (err, data) => !err && acc.push(data)
+    #)
+
+
+
 if __name__ == '__main__':
     update_db()
+    #dev()
