@@ -1,6 +1,8 @@
 attrs==21.2.0
 base58==2.1.0
+beautifulsoup4==4.9.3
 bitarray==1.2.2
+bs4==0.0.1
 certifi==2020.12.5
 chardet==4.0.0
 click==8.0.0
@@ -38,6 +40,7 @@ python-dotenv==0.17.1
 requests==2.25.1
 rlp==2.0.1
 six==1.16.0
+soupsieve==2.2.1
 toolz==0.11.1
 urllib3==1.26.4
 uWSGI==2.0.19.1
