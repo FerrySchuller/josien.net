@@ -73,7 +73,7 @@ def update_db():
     
     omi_usdt_d = {}
     omi_usdt_d['x'] = t
-    omi_usdt_d['y'] = get_omi_usdt()
+    omi_usdt_d['y'] = get_omi_usdt() 
     
     if not db.list_collection_names():
         db.omi_wallet.update_one( { }, { "$set": { "reserve": [],
@@ -87,6 +87,15 @@ def update_db():
                                                 'burn': { "$each": [ burn_d ] },
                                                 'omiusdt': { "$each": [ omi_usdt_d ] } } } )
 
+
+def fix_db():
+    docs = db.omi_wallet.find()
+    for doc in docs:
+        for i in doc['omiusdt']:
+            if not i['y']:
+                u = db.omi_wallet.update_one({}, { "$pull": { "omiusdt": { "x": i['x'] } }})
+                pprint(u)
+                pprint(i)
 
 def dev():
     w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
@@ -123,4 +132,5 @@ def dev():
 
 if __name__ == '__main__':
     update_db()
+    fix_db()
     #dev()
