@@ -76,7 +76,9 @@ def update_db():
     omi_usdt_d['x'] = t
     omi_usdt_d['y'] = price
 
-    buyback = round(float(burn) * float(price))
+    buyback = False
+    if price:
+        buyback = round(float(burn) * float(price))
     
     if not db.list_collection_names():
         db.omi_wallet.update_one( { }, { "$set": { "reserve": [],
