@@ -21,6 +21,9 @@
       <div class="col-sm">
         <div style="display: inline-block;">Burn: <b>{{ "{:,.0f}".format(omi.burn[-1].y) }}</b></div>
       </div>
+      <div class="col-sm">
+        <div style="display: inline-block;">Buyback: <b>{{ "${:,.0f}".format(omi.buyback[-1]) }}</b></div>
+      </div>
     </div>
   </div>
 <br />
@@ -51,7 +54,8 @@ Highcharts.chart('omi', {
               { name: 'vault', yAxis: 1, data: vault },
               { name: 'burn', yAxis: 2, data: burn },
               { name: 'omiusdt', yAxis: 3, data: omiusdt },
-              { type: 'flags', data: [{ x: 1622134811000, title: 'DC Cover Girls — Series 1' } ],
+              { type: 'flags', data: [ { x: 1622134811000, title: 'DC Cover Girls' },
+                                       { x: 1623344400000, title: 'Cereal Killers' } ],
                 showInLegend: false,
                 shape: 'squarepin' } ],
     tooltip: { crosshairs: true,

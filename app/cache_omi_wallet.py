@@ -71,9 +71,12 @@ def update_db():
     vault_d['x'] = t
     vault_d['y'] = round(vault)
     
+    price = get_omi_usdt()
     omi_usdt_d = {}
     omi_usdt_d['x'] = t
-    omi_usdt_d['y'] = get_omi_usdt() 
+    omi_usdt_d['y'] = price
+
+    buyback = round(float(burn) * float(price))
     
     if not db.list_collection_names():
         db.omi_wallet.update_one( { }, { "$set": { "reserve": [],
@@ -82,7 +85,8 @@ def update_db():
                                                    "burn": [] } }, upsert=True )
     
     
-    db.omi_wallet.update_one( { }, { "$push": { 'reserve': { "$each": [ reserve_d ] },
+    db.omi_wallet.update_one( { }, { "$push": { 'buyback': buyback,
+                                                'reserve': { "$each": [ reserve_d ] },
                                                 'vault': { "$each": [ vault_d ] },
                                                 'burn': { "$each": [ burn_d ] },
                                                 'omiusdt': { "$each": [ omi_usdt_d ] } } } )
@@ -99,8 +103,6 @@ def fix_db():
 
 def dev():
     w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
-    #pprint(w3.isConnected())
-
     reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
     vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
     burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
@@ -118,8 +120,8 @@ def dev():
     #pprint(vars(contract.functions.symbol))
     #pprint(contract.functions.events)
     #pprint(dict(contract.web3.eth.getBlock('latest')))
-    pprint(contract.web3.eth.block_number)
-    pprint(contract.web3.eth.get_block_transaction_count(19333793))
+    #pprint(contract.web3.eth.block_number)
+    #pprint(contract.web3.eth.get_block_transaction_count(19333793))
     #pprint(contract.web3.eth.getTransactionByBlock(19332868))
     # >>> web3.eth.get_transaction_by_block(46147, 0)
 
