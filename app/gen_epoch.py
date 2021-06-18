@@ -10,4 +10,4 @@ print(int(datetime(2021, 6, 10, 17, 0).timestamp() * 1000))
 print(int(datetime(2021, 6, 17, 17, 0).timestamp() * 1000))
 
 # Ghostbusters Slimer
-print(int(datetime(2021, 6, 18, 3, 0).timestamp() * 1000))
+print(int(datetime(2021, 6, 18, 2, 0).timestamp() * 1000))
