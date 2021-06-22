@@ -13,6 +13,9 @@
         <div style="display: inline-block;">OMI: <b>{{ "${:,.5f}".format(omi.omiusdt[-1].y) }}</b></div>
       </div>
       <div class="col-sm">
+        <div style="display: inline-block;">Total: <b>{{ "{:,.0f}".format(omi.total[-1].y) }}</b></div>
+      </div>
+      <div class="col-sm">
         <div style="display: inline-block;">Reserve: <b>{{ "{:,.0f}".format(omi.reserve[-1].y) }}</b></div>
       </div>
       <div class="col-sm">
@@ -36,6 +39,7 @@
 {% block scripts %}
     {{ super() }}
 <script>
+var total = {{ omi.total|safe }}
 var burn = {{ omi.burn|safe }}
 var vault = {{ omi.vault|safe }}
 var reserve = {{ omi.reserve|safe }}
@@ -47,13 +51,15 @@ Highcharts.chart('omi', {
     yAxis: [ { visible: false}, 
              { visible: false},
              { visible: false},
+             { visible: false},
              { title: { text: 'OMI / USDT' } } ],
     xAxis: { type: 'datetime' },
     legend: { enabled: true },
-    series: [ { name: 'reserve', yAxis: 0,  data: reserve },
-              { name: 'vault', yAxis: 1, data: vault },
-              { name: 'burn', yAxis: 2, data: burn },
-              { name: 'omiusdt', yAxis: 3, data: omiusdt },
+    series: [ { name: 'total', yAxis: 0,  data: total },
+              { name: 'reserve', yAxis: 1,  data: reserve },
+              { name: 'vault', yAxis: 2, data: vault },
+              { name: 'burn', yAxis: 3, data: burn },
+              { name: 'omiusdt', yAxis: 4, data: omiusdt },
               { type: 'flags', data: [ { x: 1622134811000, title: 'DC Cover Girls' },
                                        { x: 1623344400000, title: 'Cereal Killers' },
                                        { x: 1623949200000, title: 'Superman' },
