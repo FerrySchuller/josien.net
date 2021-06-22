@@ -76,6 +76,11 @@ def update_db():
     omi_usdt_d['x'] = t
     omi_usdt_d['y'] = price
 
+    total_d = {}
+    total_d['x'] = t
+    total_d['y'] = round(reserve + burn + vault)
+
+
     buyback = False
     if price:
         buyback = round(float(burn) * float(price))
@@ -84,10 +89,12 @@ def update_db():
         db.omi_wallet.update_one( { }, { "$set": { "reserve": [],
                                                    "vault": [],
                                                    "omiusdt": [],
+                                                   "total": [],
                                                    "burn": [] } }, upsert=True )
     
     
     db.omi_wallet.update_one( { }, { "$push": { 'buyback': buyback,
+                                                'total': { "$each": [ total_d ] },
                                                 'reserve': { "$each": [ reserve_d ] },
                                                 'vault': { "$each": [ vault_d ] },
                                                 'burn': { "$each": [ burn_d ] },
