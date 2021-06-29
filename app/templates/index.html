@@ -52,7 +52,7 @@ Highcharts.chart('omi', {
              { title: { text: 'OMI / USDT' } } ],
     xAxis: { type: 'datetime' },
     legend: { enabled: true },
-    series: [ { name: 'total', yAxis: 0,  data: total },
+    series: [ { name: 'total', yAxis: 0,  data: total, visible: false },
               { name: 'reserve', yAxis: 1,  data: reserve },
               { name: 'vault', yAxis: 2, data: vault },
               { name: 'burn', yAxis: 3, data: burn },
