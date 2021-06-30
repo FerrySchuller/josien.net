@@ -13,7 +13,9 @@ if not lib_dir:
 sys.path.append(os.getenv('lib_dir'))
 from josienlib import db
 import gate_api
+from bs4 import BeautifulSoup
 from gate_api.exceptions import ApiException, GateApiException
+import requests
 
 db = db()
 
@@ -110,6 +112,19 @@ def fix_db():
                 pprint(u)
                 pprint(i)
 
+
+def holders():
+    url = "https://explorer.gochain.io/addr/0x5347FDeA6AA4d7770B31734408Da6d34a8a07BdF?addr_tab=transactions"
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, 'html.parser')
+    #print(soup.text)
+    print(soup.prettify())
+    print(soup.encoding)
+
+
+
+
+
 def dev():
     w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
     reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
@@ -144,4 +159,5 @@ def dev():
 if __name__ == '__main__':
     update_db()
     fix_db()
+    #holders()
     #dev()

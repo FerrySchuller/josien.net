@@ -42,6 +42,8 @@ var vault = {{ omi.vault|safe }}
 var reserve = {{ omi.reserve|safe }}
 var omiusdt = {{ omi.omiusdt|safe }}
 
+// https://coolors.co/ff0000-ff8700-ffd300-deff0a-a1ff0a-0aff99-0aefff-147df5-580aff-be0aff
+
 Highcharts.chart('omi', {
     title: { text: 'Wallets / USDTOMI' },
     chart: { zoomType: 'x', height: 500 },
@@ -52,11 +54,11 @@ Highcharts.chart('omi', {
              { title: { text: 'OMI / USDT' } } ],
     xAxis: { type: 'datetime' },
     legend: { enabled: true },
-    series: [ { name: 'total', yAxis: 0,  data: total, visible: false },
-              { name: 'reserve', yAxis: 1,  data: reserve },
-              { name: 'vault', yAxis: 2, data: vault },
-              { name: 'burn', yAxis: 3, data: burn },
-              { name: 'omiusdt', yAxis: 4, data: omiusdt },
+    series: [ { name: 'total', yAxis: 0,  data: total, visible: false, color: '#147DF5' },
+              { name: 'reserve', yAxis: 1,  data: reserve, color: '#FF8700' },
+              { name: 'vault', yAxis: 2, data: vault, color: '#DEFF0A' },
+              { name: 'burn', yAxis: 3, data: burn, color: '#FF0000' },
+              { name: 'omiusdt', yAxis: 4, data: omiusdt, color: '#0AFF99' },
               { type: 'flags', data: [ { x: 1622134811000, title: 'DC Cover Girls' },
                                        { x: 1623344400000, title: 'Cereal Killers' },
                                        { x: 1623949200000, title: 'Superman' },
