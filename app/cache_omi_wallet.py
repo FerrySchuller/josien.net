@@ -159,7 +159,7 @@ def dev():
 
 
 if __name__ == '__main__':
-    #update_db()
+    update_db()
     fix_db()
     #holders()
     #dev()
