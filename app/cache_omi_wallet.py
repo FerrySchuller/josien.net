@@ -107,6 +107,8 @@ def fix_db():
     docs = db.omi_wallet.find()
     for doc in docs:
         for i in doc['omiusdt']:
+            print(i)
+        for i in doc['omiusdt']:
             if not i['y']:
                 u = db.omi_wallet.update_one({}, { "$pull": { "omiusdt": { "x": i['x'] } }})
                 pprint(u)
@@ -157,7 +159,7 @@ def dev():
 
 
 if __name__ == '__main__':
-    update_db()
+    #update_db()
     fix_db()
     #holders()
     #dev()

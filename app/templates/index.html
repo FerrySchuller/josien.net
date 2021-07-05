@@ -36,11 +36,11 @@
 {% block scripts %}
     {{ super() }}
 <script>
-var total = {{ omi.total|safe }}
-var burn = {{ omi.burn|safe }}
-var vault = {{ omi.vault|safe }}
-var reserve = {{ omi.reserve|safe }}
-var omiusdt = {{ omi.omiusdt|safe }}
+var total = {{ omi.total[100:]|safe }}
+var burn = {{ omi.burn[100:]|safe }}
+var vault = {{ omi.vault[100:]|safe }}
+var reserve = {{ omi.reserve[100:]|safe }}
+var omiusdt = {{ omi.omiusdt[100:]|safe }}
 
 // https://coolors.co/ff0000-ff8700-ffd300-deff0a-a1ff0a-0aff99-0aefff-147df5-580aff-be0aff
 
