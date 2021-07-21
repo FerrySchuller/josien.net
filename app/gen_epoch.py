@@ -15,7 +15,8 @@ print('{} {}'.format(int(datetime(2021, 7, 1, 17, 0).timestamp() * 1000), 'Frank
 
 
 l = [ { 'title': 'Frank Kozik Labbit— Series 1', 'dt': 'Thursday, July 1st at 8 am PT'},
-      { 'title': 'Back to the Future Part II Hoverboards — Series 1', 'dt': 'Thursday, July 1st at 6 pm PT'} ]
+      { 'title': 'Back to the Future Part II Hoverboards — Series 1', 'dt': 'Thursday, July 1st at 6 pm PT'},
+      { 'title': 'Ghostbusters: Ecto-1', 'dt': 'Saturday, July 17th at 8 am PT'} ]
 
 for x in l:
     dt = parse(x['dt'], settings=settings)
