@@ -38,7 +38,8 @@ def get_omi_usdt():
 
 def update_db():
     #w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
-    w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/ebcb9559740747ebab50659e20833d56'))
+    infura = os.getenv('infura')
+    w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/{}'.format(infura)))
     #pprint(w3.isConnected())
     
     # go chain
