@@ -37,23 +37,13 @@ def get_omi_usdt():
 
 
 def update_db():
-    #w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
-    w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/ebcb9559740747ebab50659e20833d56'))
+    w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
     #pprint(w3.isConnected())
     
-    # go chain
-    #reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
-    #vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
-    #burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
-    #contract_address = '0x5347FDeA6AA4d7770B31734408Da6d34a8a07BdF'
-
-
-    # eth chain
-    reserve_address = '0x00590aeAd07325386Fbe34bD27cb250345563940'
-    vault_address = '0xe4404502AC45696Dc3d384C9D16677c8b4262d39'
+    reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
+    vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
     burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
-    contract_address = '0xeD35af169aF46a02eE13b9d79Eb57d6D68C1749e'
-
+    contract_address = '0x5347FDeA6AA4d7770B31734408Da6d34a8a07BdF'
     
     with open('/prod/apps/josien.net/app/abi') as f:
       abi = json.load(f)
@@ -136,26 +126,34 @@ def holders():
 
 
 def dev():
-    w3 = Web3(Web3.HTTPProvider('https://rpc.gochain.io/'))
+
+    w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/ebcb9559740747ebab50659e20833d56'))
+    print(w3)
+    print(w3.isConnected())
+
+
     eth_reserve = '0x00590aeAd07325386Fbe34bD27cb250345563940'
 
-    reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
-    vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
-    burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
+    #reserve_address = '0xd9494D749eD554B2D2faAB1a8e20d2b566410F00'
+    #vault_address = '0x17656848E63cb846D93E629C710f6B0cc30A89dc'
+    #burn_address = '0xbBDA162f1E3EC2D4D9D99cafd0c14B03EC4E78d3'
 
     #contract_address = '0x5347FDeA6AA4d7770B31734408Da6d34a8a07BdF'
-    contract_address = '0xbe1b2dfb095c59da22df63df4bc8f92e11a2f620'
+    contract_address = '0xeD35af169aF46a02eE13b9d79Eb57d6D68C1749e'
 
     with open('/prod/apps/josien.net/app/abi') as f:
       abi = json.load(f)
 
     contract = w3.eth.contract(contract_address, abi=abi)
+    burn_balance = contract.functions.balanceOf(eth_reserve).call()
+    burn = w3.fromWei(burn_balance, 'ether')
+    print(contract, burn)
 
     #burn_balance = contract.functions.balanceOf(eth_reserve).call()
     #burn = w3.fromWei(burn_balance, 'ether')
     #print(burn)
 
-    pprint(contract)
+    #pprint(contract)
 
     #pprint(vars(contract))
     #pprint(dir(contract))
@@ -177,8 +175,8 @@ def dev():
 
 
 if __name__ == '__main__':
-    update_db()
-    fix_db()
+    #update_db()
+    #fix_db()
     #holders()
 
-    #dev()
+    dev()
